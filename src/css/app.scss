@@ -10,7 +10,7 @@
   top: 0;
   bottom: 0;
   left: 0;
-  right: calc(100vw - 250px);
+  right: 0;
   background: $siderBg;
 }
 
@@ -25,10 +25,17 @@
 }
 
 .item {
-  margin-top: 30px;
-  margin-bottom: 30px;
-  margin-left: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 20px;
+  box-sizing: border-box;
+  background: #29333a;
+  &:hover {
+    background: linear-gradient(to right, #6EE7B7, #6EE7B7 4px, #6B7280 4px, #6B7280);
+  }
 }
+
+
 
 .icon {
   font-size: 1.5rem;
