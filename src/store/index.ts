@@ -1,4 +1,5 @@
 import { store } from 'quasar/wrappers'
+import { UserInfoModel } from 'src/utils/DataModel'
 import { InjectionKey } from 'vue'
 import {
   createStore,
@@ -22,7 +23,9 @@ export interface StateInterface {
   // Define your own store structure, using submodules if needed
   // example: ExampleStateInterface;
   // Declared as unknown to avoid linting issue. Best to strongly type as per the line above.
-  example: unknown
+  apiToken?: string;
+  isLogin: false;
+  user: UserInfoModel;
 }
 
 // provide typings for `this.$store`
