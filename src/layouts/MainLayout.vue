@@ -24,7 +24,7 @@
       <router-view />
     </q-page-container>
 
-    <q-footer style="background: transparent; color: #9CA3AF; text-align: center;">HELLO</q-footer>
+    <q-footer style="background: transparent; color: #9CA3AF; text-align: center; padding-bottom: 10px;">Copyright © 2021 All Rights Reserved | Karshilov</q-footer>
   </q-layout>
 </template>
 
