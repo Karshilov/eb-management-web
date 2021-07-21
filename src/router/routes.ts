@@ -13,6 +13,10 @@ const routes: RouteRecordRaw[] = [
         path: 'audit-resources',
         component: () => import('pages/Index.vue')
       },
+      {
+        path: 'dash-board',
+        component: () => import('pages/DashBoard.vue')
+      }
     ]
   },
 

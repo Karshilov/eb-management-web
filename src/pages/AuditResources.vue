@@ -1,6 +1,6 @@
 <template>
   <q-page>
-
+    <div></div>
   </q-page>
 </template>
 
@@ -12,8 +12,8 @@ export default defineComponent({
   data() {
     return {
       list: [],
-
     }
-  }
+  },
+
 });
 </script>
