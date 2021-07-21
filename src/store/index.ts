@@ -1,14 +1,20 @@
 import { store } from 'quasar/wrappers'
-import { UserInfoModel } from 'src/utils/DataModel'
 import { InjectionKey } from 'vue'
+import VuexPersistence from 'vuex-persist'
 import {
   createStore,
   Store as VuexStore,
   useStore as vuexUseStore,
 } from 'vuex'
+import { UserStateInterface } from './user/state'
 
 // import example from './module-example'
 // import { ExampleStateInterface } from './module-example/state';
+import userModule from './user'
+
+const persistInstance = new VuexPersistence<StateInterface>({
+  storage: window.localStorage
+})
 
 /*
  * If not building with SSR mode, you can
@@ -23,9 +29,7 @@ export interface StateInterface {
   // Define your own store structure, using submodules if needed
   // example: ExampleStateInterface;
   // Declared as unknown to avoid linting issue. Best to strongly type as per the line above.
-  apiToken?: string;
-  isLogin: false;
-  user: UserInfoModel;
+  userModule: UserStateInterface
 }
 
 // provide typings for `this.$store`
@@ -42,7 +46,9 @@ export default store(function (/* { ssrContext } */) {
   const Store = createStore<StateInterface>({
     modules: {
       // example
+      userModule
     },
+    plugins: [persistInstance.plugin],
 
     // enable strict mode (adds overhead!)
     // for dev mode and --debug builds only
