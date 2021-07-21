@@ -1,4 +1,8 @@
 // app global css in SCSS form
+body {
+  background: #d9e0e7;
+}
+
 .basement {
   position: relative;
   width: 100vw;
@@ -31,7 +35,13 @@
   box-sizing: border-box;
   background: #29333a;
   &:hover {
-    background: linear-gradient(to right, #6EE7B7, #6EE7B7 4px, #6B7280 4px, #6B7280);
+    background: linear-gradient(
+      to right,
+      #6ee7b7,
+      #6ee7b7 4px,
+      #6b7280 4px,
+      #6b7280
+    );
   }
 }
 
@@ -42,10 +52,32 @@
   left: 0;
   right: 0;
   box-sizing: border-box;
-  padding: 50px;
+  padding-bottom: 50px;
+  padding-top: 15px;
+  padding-left: 8%;
+  padding-right: 8%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.echarts-card {
+  width: 48%;
+  height: 45%;
+  box-sizing: border-box;
+  padding: 30px;
+  background: #29333a;
+  margin-bottom: 30px;
+}
+
+.header-statistic {
+  padding-top: 10px;
+  padding-bottom: 5px;
+  font-size: 2rem;
+  color: #333;
+  line-height: 1.61803;
+  height: 80px;
+  width: 100%;
 }
 
 .echarts-container {
@@ -57,4 +89,3 @@
   font-size: 1.5rem;
   margin-right: 15px;
 }
-

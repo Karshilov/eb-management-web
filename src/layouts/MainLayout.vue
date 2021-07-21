@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh lpR lFf">
     <q-header
-      class="bg-white text-black shadow-2"
+      class="bg-white text-black shadow-1"
       style="height: 50px; display: flex; align-items: center"
     >
       <q-avatar size="32px" style="margin-left: 20px">
@@ -107,13 +107,13 @@
     <q-page-container :hidden="!isLogin">
       <router-view />
     </q-page-container>
-
     <q-footer
       style="
         background: transparent;
         color: #9ca3af;
         text-align: center;
-        padding-bottom: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
       "
       >Copyright © 2021 All Rights Reserved | Karshilov</q-footer
     >

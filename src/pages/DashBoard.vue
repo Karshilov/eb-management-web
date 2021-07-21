@@ -1,10 +1,28 @@
 <template>
   <q-page>
-    <div class="page-center">
-      <q-card style="width: 50%; height: 50%; box-sizing: border-box; padding: 30px;">
-        <div class="echarts-container" id="city" />
-      </q-card>
-    </div>
+    <q-scroll-area
+      style="position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px"
+    >
+      <div class="page-center">
+        <div class="header-statistic">
+          <span style="font-size: 1.5rem">{{ '全国共 ' }}</span>
+          <span style="font-size: 2rem; font-weight: 600">{{
+            whole.合租 + whole.整租
+          }}</span>
+          <span style="font-size: 1.5rem">{{ ' 处房源' }}</span>
+        </div>
+        <q-card class="echarts-card" v-for="type in keys" :key="type">
+          <div class="echarts-container" :id="type" />
+        </q-card>
+        <q-page-scroller
+          position="bottom-right"
+          :scroll-offset="150"
+          :offset="[18, 18]"
+        >
+          <q-btn fab icon="keyboard_arrow_up" color="accent" />
+        </q-page-scroller>
+      </div>
+    </q-scroll-area>
   </q-page>
 </template>
 
@@ -13,6 +31,7 @@
 import { defineComponent, ref } from 'vue';
 import * as echarts from 'echarts';
 import { api } from 'boot/axios';
+import { cityOptions, wholeOptions } from '../utils/echartsOptions';
 interface City {
   city: string;
   count: number;
@@ -54,12 +73,18 @@ export default defineComponent({
     const area = ref<Area[]>([]);
     return { city, whole, area };
   },
+  data() {
+    return {
+      keys: ['city', 'whole', 'area'],
+    };
+  },
   created() {
     /* */
   },
   async mounted() {
     await this.loadData();
     this.drawCity();
+    this.drawWhole();
   },
   methods: {
     async loadData() {
@@ -92,32 +117,33 @@ export default defineComponent({
         console.log(cityData);
         let cityChart = echarts.init(city);
         cityChart.setOption({
-          title: {
-            text: '城市房源分布图',
-            left: 'center',
-          },
-          tooltip: {
-            trigger: 'item',
-          },
-          legend: {
-            orient: 'vertical',
-            left: 'left',
-          },
+          ...cityOptions,
           series: [
             {
               name: '房源归属地',
               type: 'pie',
-              radius: '50%',
+              radius: '55%',
               data: cityData,
               emphasis: {
                 itemStyle: {
                   shadowBlur: 10,
                   shadowOffsetX: 0,
-                  shadowColor: 'rgba(0, 0, 0, 0.5)',
+                  shadowColor: 'rgba(255, 255, 255, 0.5)',
                 },
               },
             },
           ],
+        });
+      }
+    },
+    drawWhole() {
+      const whole = document.getElementById('whole');
+      const wholeData = [this.whole.整租, this.whole.合租];
+      if (whole) {
+        let wholeChart = echarts.init(whole);
+        wholeChart.setOption({
+          ...wholeOptions,
+          series: [{ data: wholeData, type: 'bar' }],
         });
       }
     },
