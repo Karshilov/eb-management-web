@@ -6,11 +6,13 @@
       <div class="page-center">
         <div class="q-pa-md">
           <q-table
+            v-if="list.length !== 0"
             :columns="columns"
             row-key="title"
-            :data="list"
+            :rows="list"
             title="待审核房源"
-          ></q-table>
+          >
+          </q-table>
         </div>
       </div>
     </q-scroll-area>
@@ -28,6 +30,7 @@ export default defineComponent({
   name: 'audit-resources',
   data() {
     return {
+      moment,
       list: ref<RentDetailModel[]>([]),
       columns: [
         {
