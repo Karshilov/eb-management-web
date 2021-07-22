@@ -7,11 +7,11 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: '',
-        component: () => import('pages/Index.vue')
+        component: () => import('pages/AuditResources.vue')
       },
       {
         path: 'audit-resources',
-        component: () => import('pages/Index.vue')
+        component: () => import('pages/AuditResources.vue')
       },
       {
         path: 'dash-board',

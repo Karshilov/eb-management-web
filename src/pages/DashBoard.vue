@@ -31,7 +31,11 @@
 import { defineComponent, ref } from 'vue';
 import * as echarts from 'echarts';
 import { api } from 'boot/axios';
-import { getAreaOptions, getCityOptions, getWholeOptions } from '../utils/echartsOptions';
+import {
+  getAreaOptions,
+  getCityOptions,
+  getWholeOptions,
+} from '../utils/echartsOptions';
 interface City {
   city: string;
   count: number;
@@ -79,7 +83,9 @@ export default defineComponent({
     };
   },
   created() {
-    /* */
+    api.defaults.headers = {
+      'x-api-token': this.$store.state.userModule.apiToken,
+    };
   },
   async mounted() {
     await this.loadData();
@@ -89,9 +95,6 @@ export default defineComponent({
   },
   methods: {
     async loadData() {
-      api.defaults.headers = {
-        'x-api-token': this.$store.state.userModule.apiToken,
-      };
       const res = await api.get('/rent/analysis');
       const success = res.data.success as boolean;
       const reason = res.data.reason as string;
@@ -130,13 +133,13 @@ export default defineComponent({
     },
     drawArea() {
       const area = document.getElementById('area');
-      const areaXData = this.area.map(item => item.lower.toString())
-      const areaYData = this.area.map(item => item.count)
+      const areaXData = this.area.map((item) => item.lower.toString());
+      const areaYData = this.area.map((item) => item.count);
       if (area) {
         let areaChart = echarts.init(area);
-        areaChart.setOption(getAreaOptions(areaXData, areaYData))
+        areaChart.setOption(getAreaOptions(areaXData, areaYData));
       }
-    }
+    },
   },
 });
 </script>
