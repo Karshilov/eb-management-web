@@ -33,6 +33,45 @@ export interface RentDetailModel {
   equipments: number;
 }
 
+export interface TeamDetailModel {
+  id: string;
+  name: string;
+  leader_id: string;
+  create_time: number;
+}
+
+export const teamColumns = [
+  {
+    name: 'name',
+    label: '团队名称',
+    field: 'name',
+    require: true,
+    align: 'center',
+  },
+  {
+    name: 'leader_id',
+    label: '团队创建人',
+    field: 'leader_id',
+    require: true,
+    align: 'center',
+  },
+  {
+    name: 'create_time',
+    label: '上传时间',
+    field: 'create_time',
+    format: (val: number) => moment(val * 1000).format('YYYY-MM-DD'),
+    required: true,
+    align: 'center',
+  },
+  {
+    name: 'action',
+    label: '操作',
+    field: (row: TeamDetailModel) => row,
+    require: true,
+    align: 'center'
+  }
+]
+
 export const columns = [
   {
     name: 'title',
@@ -40,7 +79,7 @@ export const columns = [
     field: 'title',
     required: true,
     align: 'center',
-    headerStyle: 'min-width: 300px',
+    headerStyle: 'min-width: 250px',
   },
   {
     name: 'city',

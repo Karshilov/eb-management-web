@@ -116,7 +116,7 @@
     </q-page-container>
     <q-footer
       :style="`background: ${
-        (current === 'dash-board' || current === '') ? 'transparent' : '#fff'
+        (current === 'dash-board' || !this.$store.state.userModule.isLogin) ? 'transparent' : '#fff'
       };color: #9ca3af;text-align: center;padding-top: 5px;padding-bottom: 5px;`"
       >Copyright © 2021 All Rights Reserved | Karshilov</q-footer
     >

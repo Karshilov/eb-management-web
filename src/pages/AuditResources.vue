@@ -68,29 +68,27 @@
           @request="loadData"
         >
           <template v-slot:body-cell-action="props">
-            <q-tr :props="props">
-              <q-td key="action" :props="props">
-                <q-btn
-                  label="通过"
-                  color="primary"
-                  :disable="loading"
-                  style="margin-right: 10px"
-                  @click="onApproval(props.row)"
-                />
-                <q-btn
-                  label="拒绝"
-                  color="primary"
-                  outline
-                  :disable="loading"
-                  @click="
-                    () => {
-                      this.visible = true;
-                      this.currentSelected = props.row;
-                    }
-                  "
-                />
-              </q-td>
-            </q-tr>
+            <q-td key="action" :props="props">
+              <q-btn
+                label="通过"
+                color="primary"
+                :disable="loading"
+                style="margin-right: 10px"
+                @click="onApproval(props.row)"
+              />
+              <q-btn
+                label="拒绝"
+                color="primary"
+                outline
+                :disable="loading"
+                @click="
+                  () => {
+                    this.visible = true;
+                    this.currentSelected = props.row;
+                  }
+                "
+              />
+            </q-td>
           </template>
         </q-table>
       </div>
