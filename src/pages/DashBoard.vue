@@ -31,7 +31,7 @@
 import { defineComponent, ref } from 'vue';
 import * as echarts from 'echarts';
 import { api } from 'boot/axios';
-import { getCityOptions, getWholeOptions } from '../utils/echartsOptions';
+import { getAreaOptions, getCityOptions, getWholeOptions } from '../utils/echartsOptions';
 interface City {
   city: string;
   count: number;
@@ -85,6 +85,7 @@ export default defineComponent({
     await this.loadData();
     this.drawCity();
     this.drawWhole();
+    this.drawArea();
   },
   methods: {
     async loadData() {
@@ -127,6 +128,15 @@ export default defineComponent({
         wholeChart.setOption(getWholeOptions(wholeData));
       }
     },
+    drawArea() {
+      const area = document.getElementById('area');
+      const areaXData = this.area.map(item => item.lower.toString())
+      const areaYData = this.area.map(item => item.count)
+      if (area) {
+        let areaChart = echarts.init(area);
+        areaChart.setOption(getAreaOptions(areaXData, areaYData))
+      }
+    }
   },
 });
 </script>

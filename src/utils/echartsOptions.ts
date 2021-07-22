@@ -69,18 +69,32 @@ export const getWholeOptions = (wholeData: number[]) => ({
   series: [{ data: wholeData, type: 'bar' }],
 })
 
-export const areaOptions = {
+export const getAreaOptions = (xData: string[], yData: number[]) => ({
+  backgroundColor: '#29333a',
+  textStyle: {
+    color: 'rgba(255, 255, 255, 0.7)',
+    fontSize: 24
+  },
+  title: {
+    text: '房源面积分布图',
+    left: 'center',
+    textStyle: {
+      color: 'rgba(255, 255, 255, 0.9)',
+    },
+  },
   xAxis: {
       type: 'category',
       boundaryGap: false,
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      data: xData
   },
   yAxis: {
       type: 'value'
   },
   series: [{
-      data: [820, 932, 901, 934, 1290, 1330, 1320],
+      data: yData,
       type: 'line',
-      areaStyle: {}
+      areaStyle: {
+        color: '#00896c'
+      }
   }]
-};
+})
