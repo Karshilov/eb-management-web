@@ -17,7 +17,7 @@
         >檐椽网</span
       >
       <div style="flex-grow: 1"></div>
-      <q-avatar size="32px" style="margin-right: 10px;">
+      <q-avatar size="32px" style="margin-right: 10px">
         <q-icon
           v-if="!isLogin"
           :name="matAccountCircle"
@@ -25,7 +25,14 @@
         />
         <img :src="avatar" style="width: 32px" />
       </q-avatar>
-      <q-btn icon="logout" flat round dense style="color: #00896c; margin-right: 20px;" @click="onLogout"/>
+      <q-btn
+        icon="logout"
+        flat
+        round
+        dense
+        style="color: #00896c; margin-right: 20px"
+        @click="onLogout"
+      />
     </q-header>
 
     <q-dialog v-model="visible" persistent>
@@ -108,7 +115,9 @@
       <router-view />
     </q-page-container>
     <q-footer
-      :style="`background: ${current === 'dash-board' ? 'transparent' : '#fff'};color: #9ca3af;text-align: center;padding-top: 5px;padding-bottom: 5px;`"
+      :style="`background: ${
+        current === 'dash-board' ? 'transparent' : '#fff'
+      };color: #9ca3af;text-align: center;padding-top: 5px;padding-bottom: 5px;`"
       >Copyright © 2021 All Rights Reserved | Karshilov</q-footer
     >
   </q-layout>
@@ -141,13 +150,21 @@ export default defineComponent({
       return this.$store.state.userModule.isLogin;
     },
   },
-  created: function () {
+  created: async function () {
     this.current = this.$route.path;
     this.matAccountCircle = matAccountCircle;
     this.avatar = this.$store.state.userModule.user?.avatar ?? '';
     console.log(this.current, this.current.split('/').reverse()[0]);
     if (!this.isLogin) {
       this.visible = true;
+    }
+    if (this.$store.state.userModule.isLogin) {
+      api.defaults.headers = { 'x-api-token': this.$store.state.userModule.user?.token };
+      const res = await api.get('/test');
+      if (res.status !== 200 || !res.data.success) {
+        this.$store.commit('userModule/logout');
+        this.visible = true;
+      }
     }
   },
   methods: {
@@ -206,10 +223,10 @@ export default defineComponent({
       this.password = '';
     },
     onLogout() {
-      console.log('here')
+      console.log('here');
       this.$store.commit('userModule/logout');
       this.visible = true;
-    }
+    },
   },
 });
 </script>

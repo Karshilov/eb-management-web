@@ -10,6 +10,7 @@ export interface UserInfoModel {
   role: string;
 }
 export interface RentDetailModel {
+  id: string;
   title: string;
   photos: string[];
   house_type: string;
