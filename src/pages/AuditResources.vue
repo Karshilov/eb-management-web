@@ -1,5 +1,57 @@
 <template>
   <q-page style="background: #fff">
+    <q-dialog v-model="visible">
+      <q-card style="width: 40vw; padding: 20px">
+        <q-card-section
+          class="cloumn"
+          style="display: flex; justify-content: center"
+        >
+          <q-icon :name="matInfo" style="font-size: 18px" />
+          <span>请简述拒绝理由（如房价虚高）</span>
+        </q-card-section>
+
+        <q-form
+          @submit="onRefuse(currentSelected)"
+          @reset="
+            () => {
+              this.reason = '';
+            }
+          "
+          class="q-gutter-md"
+        >
+          <q-input
+            filled
+            v-model="reason"
+            label="在此输入拒绝的理由"
+            type="textarea"
+            lazy-rules
+            :rules="[
+              (val) => (val && val.length > 0) || '原因不得为空',
+              (val) => val.search(/[^\s]/) !== -1 || '原因不能全是空字符',
+            ]"
+          />
+          <div>
+            <q-inner-loading :showing="refuseLoading">
+              <q-spinner-dots size="50px" color="primary" />
+            </q-inner-loading>
+            <q-btn
+              label="确定"
+              type="submit"
+              color="primary"
+              :v-close-popup="visible"
+              :disable="refuseLoading"
+            />
+            <q-btn
+              label="重置"
+              type="reset"
+              color="primary"
+              flat
+              class="q-ml-sm"
+            />
+          </div>
+        </q-form>
+      </q-card>
+    </q-dialog>
     <q-scroll-area
       style="position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px"
     >
@@ -30,6 +82,12 @@
                   color="primary"
                   outline
                   :disable="loading"
+                  @click="
+                    () => {
+                      this.visible = true;
+                      this.currentSelected = props.row;
+                    }
+                  "
                 />
               </q-td>
             </q-tr>
@@ -45,6 +103,7 @@
 import { defineComponent, ref } from 'vue';
 import { api } from 'boot/axios';
 import { RentDetailModel, columns } from '../utils/DataModel';
+import { matInfo } from '@quasar/extras/material-icons';
 
 export default defineComponent({
   name: 'audit-resources',
@@ -60,10 +119,25 @@ export default defineComponent({
     const loading = ref<boolean>(false);
     const visible = ref<boolean>(false);
     const reason = ref<string>('');
-    return { tableLoading, pagination, columns, list, total, loading, visible, reason };
+    const refuseLoading = ref<boolean>(false);
+    const currentSelected = ref<RentDetailModel>(list.value[0]);
+    return {
+      tableLoading,
+      pagination,
+      columns,
+      list,
+      total,
+      loading,
+      visible,
+      reason,
+      refuseLoading,
+      currentSelected,
+    };
   },
   data() {
-    return {};
+    return {
+      matInfo,
+    };
   },
   async created() {
     api.defaults.headers = {
@@ -137,7 +211,7 @@ export default defineComponent({
     },
     async onRefuse(props: RentDetailModel) {
       const { id } = props;
-      this.loading = true;
+      this.refuseLoading = true;
       const res = await api.post('/admin/audit/rent', {
         house_id: id,
         approval: false,
@@ -148,7 +222,7 @@ export default defineComponent({
       if (success) {
         this.$q.notify({
           type: 'positive',
-          message: '审核成功',
+          message: '已拒绝并通知对方',
         });
       } else {
         this.$q.notify({
@@ -157,9 +231,10 @@ export default defineComponent({
         });
       }
       this.reason = '';
-      this.loading = false;
+      this.refuseLoading = false;
+      this.visible = false;
       await this.loadData({ pagination: this.pagination });
-    }
+    },
   },
 });
 </script>

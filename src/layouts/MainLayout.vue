@@ -48,8 +48,8 @@
           <q-input
             filled
             v-model="username"
-            label="Your name *"
-            hint="Name and surname"
+            label="用户名"
+            hint="请不要填邮箱"
             lazy-rules
             :rules="[
               (val) => (val && val.length > 0) || '用户名不得为空',
@@ -61,7 +61,7 @@
             filled
             type="password"
             v-model="password"
-            label="Your age *"
+            label="密码"
             lazy-rules
             :rules="[
               (val) => (val !== null && val !== '') || '密码不得为空',
@@ -73,14 +73,14 @@
               <q-spinner-dots size="50px" color="primary" />
             </q-inner-loading>
             <q-btn
-              label="Submit"
+              label="确定"
               type="submit"
               color="primary"
               :v-close-popup="visible"
               :disable="loading"
             />
             <q-btn
-              label="Reset"
+              label="重置"
               type="reset"
               color="primary"
               flat
