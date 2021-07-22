@@ -160,6 +160,7 @@ export default defineComponent({
     async onClick(value: string) {
       if (!this.isLogin) return;
       await this.$router.push({ path: `/${value}` });
+      this.current = value;
     },
     judgeCurrent(value: string) {
       if (this.current.split('/').reverse()[0] === value) return true;

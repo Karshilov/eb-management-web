@@ -31,7 +31,7 @@
 import { defineComponent, ref } from 'vue';
 import * as echarts from 'echarts';
 import { api } from 'boot/axios';
-import { cityOptions, wholeOptions } from '../utils/echartsOptions';
+import { getCityOptions, getWholeOptions } from '../utils/echartsOptions';
 interface City {
   city: string;
   count: number;
@@ -116,24 +116,7 @@ export default defineComponent({
       if (city) {
         console.log(cityData);
         let cityChart = echarts.init(city);
-        cityChart.setOption({
-          ...cityOptions,
-          series: [
-            {
-              name: '房源归属地',
-              type: 'pie',
-              radius: '55%',
-              data: cityData,
-              emphasis: {
-                itemStyle: {
-                  shadowBlur: 10,
-                  shadowOffsetX: 0,
-                  shadowColor: 'rgba(255, 255, 255, 0.5)',
-                },
-              },
-            },
-          ],
-        });
+        cityChart.setOption(getCityOptions(cityData));
       }
     },
     drawWhole() {
@@ -141,10 +124,7 @@ export default defineComponent({
       const wholeData = [this.whole.整租, this.whole.合租];
       if (whole) {
         let wholeChart = echarts.init(whole);
-        wholeChart.setOption({
-          ...wholeOptions,
-          series: [{ data: wholeData, type: 'bar' }],
-        });
+        wholeChart.setOption(getWholeOptions(wholeData));
       }
     },
   },
