@@ -61,6 +61,19 @@ body {
   justify-content: space-between;
 }
 
+.list-page-center {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding-bottom: 50px;
+  padding-top: 15px;
+  padding-left: 55px;
+  padding-right: 55px;
+}
+
 .echarts-card {
   width: 48%;
   height: 45%;
@@ -88,4 +101,17 @@ body {
 .icon {
   font-size: 1.5rem;
   margin-right: 15px;
+}
+
+.header-table {
+  .q-table__top,
+  .q-table__bottom,
+  thead tr:first-child th {
+    /* bg color is important for th; just specify one */
+    background-color: #f5f5f5;
+    border-color: #ddd;
+  }
+  .q-table__top {
+    border-bottom: 1px;
+  }
 }

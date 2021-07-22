@@ -108,13 +108,7 @@
       <router-view />
     </q-page-container>
     <q-footer
-      style="
-        background: transparent;
-        color: #9ca3af;
-        text-align: center;
-        padding-top: 5px;
-        padding-bottom: 5px;
-      "
+      :style="`background: ${current === 'dash-board' ? 'transparent' : '#fff'};color: #9ca3af;text-align: center;padding-top: 5px;padding-bottom: 5px;`"
       >Copyright © 2021 All Rights Reserved | Karshilov</q-footer
     >
   </q-layout>

@@ -1,19 +1,18 @@
 <template>
-  <q-page>
+  <q-page style="background: #fff;">
     <q-scroll-area
       style="position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px"
     >
-      <div class="page-center">
-        <div class="q-pa-md">
+      <div class="list-page-center">
           <q-table
             v-if="list.length !== 0"
             :columns="columns"
-            row-key="title"
+            row-key="id"
             :rows="list"
             title="待审核房源"
+            class="header-table"
           >
           </q-table>
-        </div>
       </div>
     </q-scroll-area>
   </q-page>
@@ -39,12 +38,13 @@ export default defineComponent({
           field: 'title',
           required: true,
           align: 'center',
+          headerStyle: 'min-width: 500px',
         },
         {
           name: 'create_time',
           label: '上传时间',
           field: 'create_time',
-          format: (val: number) => moment(val).format('YYYY-MM-DD'),
+          format: (val: number) => moment(val * 1000).format('YYYY-MM-DD'),
           required: true,
           align: 'center',
         },
