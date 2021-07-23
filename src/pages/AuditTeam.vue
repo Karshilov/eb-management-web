@@ -165,18 +165,18 @@ export default defineComponent({
       if (success) {
         const total = res.data.result.total as number;
         const list = res.data.result.list as TeamDetailModel[];
-        // for (let i = 0; i < list.length; i++) {
-        //   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        //   const info = await api.get('/user', {
-        //     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        //     params: { id: list[i].owner },
-        //   });
-        //   if (info.data.success) {
-        //     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        //     list[i].owner = info.data.result;
-        //   }
-        // }
-        // // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        for (let i = 0; i < list.length; i++) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          const info = await api.get('/user', {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            params: { id: list[i].leader_id },
+          });
+          if (info.data.success) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            list[i].leader_id = info.data.result.username;
+          }
+        }
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         this.list = list;
         this.pagination.page = page as number;
         this.pagination.rowsPerPage = rowsPerPage as number;
