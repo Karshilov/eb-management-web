@@ -16,16 +16,6 @@ const options = [
     name: '房源数据',
     icon: matTimeline
   },
-  {
-    key: 'blog-management',
-    name: '博客管理',
-    icon: matRssFeed
-  },
-  {
-    key: 'access-management',
-    name: '权限管理',
-    icon: matVpnKey
-  }
 ]
 
 export default options;
