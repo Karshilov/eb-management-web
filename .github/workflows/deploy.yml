@@ -16,8 +16,6 @@ jobs:
       - name: Install 1
         run: npm install -g yarn
       - name: Install 2
-        run: npm ci
-      - name: Install 3
         run: yarn global add @quasar/cli
       - name: Build
         run: yarn run build
