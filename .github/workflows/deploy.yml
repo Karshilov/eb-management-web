@@ -22,7 +22,7 @@ jobs:
       - name: Build
         run: yarn run build
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@master
+        uses: Karshilov/eb-management-web@master
         env:
           BASE_BRANCH: master
           BRANCH: build
