@@ -20,6 +20,10 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'dash-board',
         component: () => import('pages/DashBoard.vue')
+      },
+      {
+        path: 'realsee',
+        component: () => import('pages/Realsee.vue')
       }
     ]
   },

@@ -1,4 +1,4 @@
-import { matApartment, matGroups, matTimeline, matRssFeed, matVpnKey } from '@quasar/extras/material-icons'
+import { matApartment, matGroups, matTimeline, matCamera } from '@quasar/extras/material-icons'
 
 const options = [
   {
@@ -16,6 +16,11 @@ const options = [
     name: '房源数据',
     icon: matTimeline
   },
+  {
+    key: 'realsee',
+    name: 'VR申请',
+    icon: matCamera,
+  }
 ]
 
 export default options;
