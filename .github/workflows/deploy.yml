@@ -26,3 +26,13 @@ jobs:
         with:
           branch: build 
           folder: dist/spa
+      - name: Update
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: ｜
+            cd ~/eb-management-web/
+            git checkout build
+            git pull
+          host: ${{ secrets.HOST }}
+          username: root
+          privateKey: ${{ secrets.PRIVATE_KEY}}
